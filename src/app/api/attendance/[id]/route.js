@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnection from '@/config/dbConnection';
 import Attendance from '@/models/attendanceModel';
+export const revalidate = 0;
 
 export async function GET(_, { params }) {
   await dbConnection();

@@ -4,6 +4,7 @@ import Checkin from "@/models/checkinModel";
 import { getToken } from "next-auth/jwt"; // Adjust this if you're using another auth method
 
 const secret = process.env.NEXTAUTH_SECRET;
+export const revalidate = 0;
 
 export async function GET(req) {
   await dbConnection();

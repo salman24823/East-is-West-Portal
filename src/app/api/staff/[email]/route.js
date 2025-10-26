@@ -22,8 +22,11 @@ import { NextResponse } from "next/server";
 import dbConnection from "@/config/dbConnection";
 import User from "@/models/userModel";
 
+export const revalidate = 0;
+
 // GET /api/user/[email]
 export async function GET(req, { params }) {
+
   try {
     console.log(`[GET] /api/user/${params.email}`);
 

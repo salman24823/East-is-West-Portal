@@ -4,6 +4,7 @@ import Checkout from "@/models/checkoutModel";
 import { getToken } from "next-auth/jwt";
 
 const secret = process.env.NEXTAUTH_SECRET;
+export const revalidate = 0;
 
 export async function GET(req) {
   await dbConnection();

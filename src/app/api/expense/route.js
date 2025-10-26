@@ -33,6 +33,8 @@ import { NextResponse } from "next/server";
 import dbConnection from "@/config/dbConnection";
 import Expense from "@/models/expenses";
 
+export const revalidate = 0;
+
 // GET /api/expense → fetch all expenses & total
 export async function GET() {
   console.log("📥 Received GET request to fetch expenses");

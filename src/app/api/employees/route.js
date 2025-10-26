@@ -16,6 +16,7 @@
 import dbConnection from "@/config/dbConnection";
 import User from "@/models/userModel";
 import { NextResponse } from "next/server";
+export const revalidate = 0;
 
 // GET /api/employees
 export async function GET(req) {

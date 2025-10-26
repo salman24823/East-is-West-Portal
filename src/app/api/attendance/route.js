@@ -3,6 +3,8 @@ import dbConnection from '@/config/dbConnection';
 import Checkin from '@/models/checkinModel';
 import Checkout from '@/models/checkoutModel';
 
+export const revalidate = 0;
+
 export async function GET() {
   await dbConnection();
 

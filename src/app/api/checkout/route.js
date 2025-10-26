@@ -69,6 +69,8 @@ import { NextResponse } from "next/server";
 import dbConnection from "@/config/dbConnection";
 import Checkout from "@/models/checkoutModel";
 
+export const revalidate = 0;
+
 export async function GET(req) {
   await dbConnection();
 

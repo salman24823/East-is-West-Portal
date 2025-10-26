@@ -17,71 +17,8 @@ import {
   FiClock,
 } from "react-icons/fi";
 import { useSession } from "next-auth/react";
-
-const invoices = [
-  {
-    id: "INV001",
-    customer: "Skylar Price",
-    date: "11/02/2024",
-    amount: "$354",
-    status: "Delivered",
-  },
-  {
-    id: "INV002",
-    customer: "Julian",
-    date: "11/09/2024",
-    amount: "$910",
-    status: "In Progress",
-  },
-  {
-    id: "INV003",
-    customer: "Ava Jones",
-    date: "08/05/2024",
-    amount: "$230",
-    status: "Returned",
-  },
-];
-
-const stockSummary = [
-  {
-    title: "Total Sales Items",
-    value: 210,
-    icon: <FiCheckCircle className="text-green-500" />,
-  },
-  {
-    title: "Total Return Items",
-    value: 2,
-    icon: <FiRefreshCw className="text-yellow-500" />,
-  },
-  {
-    title: "Total Purchases",
-    value: 500,
-    icon: <FiBox className="text-blue-500" />,
-  },
-  {
-    title: "Purchase Returns",
-    value: 10,
-    icon: <FiAlertTriangle className="text-red-500" />,
-  },
-];
-
-const alerts = [
-  {
-    product: "iPad Pro",
-    qty: 5,
-    icon: <FiAlertTriangle className="text-red-500" />,
-  },
-  {
-    product: "DJI Mavic Pro 2",
-    qty: 3,
-    icon: <FiAlertTriangle className="text-red-500" />,
-  },
-  {
-    product: "Google Pixel",
-    qty: 8,
-    icon: <FiAlertTriangle className="text-yellow-500" />,
-  },
-];
+import { EarIcon, EarthIcon, Facebook, Instagram, Youtube } from "lucide-react";
+import SocialLinksSection from "../components/Links";
 
 export default function Dashboard() {
   const [totalExpense, setTotalExpense] = useState(0);
@@ -98,14 +35,6 @@ export default function Dashboard() {
 
   const { data: session, status } = useSession();
 
-  // useEffect(() => {
-  //   console.log(session,status, "session")
-  //   if (status === "unauthenticated") {
-  //     // location.replace("/");
-  //   }
-  // }, [status, session]);
-
-  
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
@@ -120,11 +49,11 @@ export default function Dashboard() {
 
         const todayStr = new Date().toLocaleDateString();
 
-  // employees
-  let employees = [];
-  if (empRes.ok) employees = await empRes.json();
-  setActiveEmployees(Array.isArray(employees) ? employees.length : 0);
-  setLoadingEmployees(false);
+        // employees
+        let employees = [];
+        if (empRes.ok) employees = await empRes.json();
+        setActiveEmployees(Array.isArray(employees) ? employees.length : 0);
+        setLoadingEmployees(false);
 
         // checkins
         let checkins = [];
@@ -228,6 +157,8 @@ export default function Dashboard() {
           <SummaryCard key={idx} {...card} />
         ))}
       </div>
+
+      <SocialLinksSection />
 
       {/* Staff Summary & Recent Attendance */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

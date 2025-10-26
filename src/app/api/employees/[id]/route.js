@@ -13,6 +13,8 @@ import { NextResponse } from "next/server";
 import dbConnection from "@/config/dbConnection";
 import User from "@/models/userModel";
 
+export const revalidate = 0;
+
 // GET /api/employees/:id
 export async function GET(_, { params }) {
   console.log(`📥 Received GET request for user ID: ${params.id}`);
