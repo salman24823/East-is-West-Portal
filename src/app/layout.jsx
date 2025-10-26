@@ -3,7 +3,7 @@ import { HeroUIProvider } from "@heroui/react";
 import { ToastContainer } from "react-toastify";
 import SessionWrapper from "./dashboard/components/SessionWrapper";
 export const metadata = {
-  title: "POSPro",
+  title: "Portal",
   description: "A modern POS solution for seamless business operations",
 };
 
