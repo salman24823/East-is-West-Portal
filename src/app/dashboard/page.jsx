@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import SummaryCard from "./components/SummaryCard";
-import SalesChart from "./components/SalesChart";
+// import SalesChart from "./components/SalesChart"; // not used for staff dashboard
 import {
   FiTrendingUp,
   FiTrendingDown,
@@ -13,6 +13,7 @@ import {
   FiBox,
   FiRefreshCw,
   FiCheckCircle,
+  FiLoader,
   FiClock,
 } from "react-icons/fi";
 import { useSession } from "next-auth/react";
@@ -84,6 +85,16 @@ const alerts = [
 
 export default function Dashboard() {
   const [totalExpense, setTotalExpense] = useState(0);
+  const [activeEmployees, setActiveEmployees] = useState(0);
+  const [todayCheckins, setTodayCheckins] = useState(0);
+  const [todayCheckouts, setTodayCheckouts] = useState(0);
+  const [recentAttendance, setRecentAttendance] = useState([]);
+  // loading flags for each section
+  const [loadingEmployees, setLoadingEmployees] = useState(true);
+  const [loadingCheckins, setLoadingCheckins] = useState(true);
+  const [loadingCheckouts, setLoadingCheckouts] = useState(true);
+  const [loadingAttendance, setLoadingAttendance] = useState(true);
+  const [loadingExpense, setLoadingExpense] = useState(true);
 
   const { data: session, status } = useSession();
 
@@ -96,57 +107,116 @@ export default function Dashboard() {
 
   
   useEffect(() => {
-    const fetchTotalExpenses = async () => {
+    const fetchDashboardData = async () => {
       try {
-        const res = await fetch("/api/expense");
-        const data = await res.json();
-        if (res.ok && data.total !== undefined) {
-          setTotalExpense(data.total);
+        const [empRes, checkinRes, checkoutRes, attendanceRes, expenseRes] =
+          await Promise.all([
+            fetch("/api/employees"),
+            fetch("/api/checkin"),
+            fetch("/api/checkout"),
+            fetch("/api/attendance"),
+            fetch("/api/expense"),
+          ]);
+
+        const todayStr = new Date().toLocaleDateString();
+
+  // employees
+  let employees = [];
+  if (empRes.ok) employees = await empRes.json();
+  setActiveEmployees(Array.isArray(employees) ? employees.length : 0);
+  setLoadingEmployees(false);
+
+        // checkins
+        let checkins = [];
+        if (checkinRes.ok) checkins = await checkinRes.json();
+        const todaysCheckins = Array.isArray(checkins)
+          ? checkins.filter((c) => c.date === todayStr).length
+          : 0;
+        setTodayCheckins(todaysCheckins);
+        setLoadingCheckins(false);
+
+        // checkouts
+        let checkouts = [];
+        if (checkoutRes.ok) checkouts = await checkoutRes.json();
+        const todaysCheckouts = Array.isArray(checkouts)
+          ? checkouts.filter((c) => c.date === todayStr).length
+          : 0;
+        setTodayCheckouts(todaysCheckouts);
+        setLoadingCheckouts(false);
+
+        // attendance (merged)
+        if (attendanceRes.ok) {
+          const attendance = await attendanceRes.json();
+          setRecentAttendance(Array.isArray(attendance) ? attendance.slice(0, 8) : []);
         } else {
-          throw new Error(data.message || "Failed to load expense");
+          setRecentAttendance([]);
         }
+        setLoadingAttendance(false);
+
+        // expense total
+        if (expenseRes.ok) {
+          const expenseData = await expenseRes.json();
+          setTotalExpense(expenseData?.total || 0);
+        } else {
+          setTotalExpense(0);
+        }
+        setLoadingExpense(false);
       } catch (err) {
-        console.error("❌ Failed to load total expense:", err.message);
+        console.error("Failed to load dashboard data:", err);
+        // clear loading flags on error to avoid perpetual spinners
+        setLoadingEmployees(false);
+        setLoadingCheckins(false);
+        setLoadingCheckouts(false);
+        setLoadingAttendance(false);
+        setLoadingExpense(false);
       }
     };
 
-    fetchTotalExpenses();
+    fetchDashboardData();
   }, []);
 
   const summaryCards = [
     {
-      title: "Total Sales",
-      value: "$12,345",
-      change: "20%",
+      title: "Active Employees",
+      value: activeEmployees,
+      change: "—",
       isPositive: true,
-      icon: <FiTrendingUp className="text-green-500 text-2xl" />,
+      icon: <FiCheckCircle className="text-green-500 text-2xl" />,
       color: "bg-green-100",
     },
     {
-      title: "Total Expense",
-      value: `$${totalExpense.toLocaleString()}`, // ✅ formatted dynamically
-      change: "8%",
-      isPositive: false,
-      icon: <FiTrendingDown className="text-yellow-500 text-2xl" />,
+      title: "Today's Check-Ins",
+      value: todayCheckins,
+      change: "—",
+      isPositive: true,
+      icon: <FiClock className="text-yellow-500 text-2xl" />,
       color: "bg-yellow-100",
     },
     {
-      title: "Payment Sent",
-      value: "$65,920",
-      change: "32%",
+      title: "Today's Check-Outs",
+      value: todayCheckouts,
+      change: "—",
       isPositive: true,
-      icon: <FiUpload className="text-blue-500 text-2xl" />,
+      icon: <FiTrendingDown className="text-blue-500 text-2xl" />,
       color: "bg-blue-100",
     },
     {
-      title: "Payment Received",
-      value: "$72,840",
-      change: "3%",
+      title: "Total Expense",
+      value: `$${totalExpense.toLocaleString()}`,
+      change: "—",
       isPositive: false,
-      icon: <FiDownload className="text-red-500 text-2xl" />,
+      icon: <FiDollarSign className="text-red-500 text-2xl" />,
       color: "bg-red-100",
     },
   ];
+
+  const isCardLoading = (title) => {
+    if (title === "Active Employees") return loadingEmployees;
+    if (title === "Today's Check-Ins") return loadingCheckins;
+    if (title === "Today's Check-Outs") return loadingCheckouts;
+    if (title === "Total Expense") return loadingExpense;
+    return false;
+  };
 
   return (
     <main className="flex-1 p-6 space-y-6 overflow-auto">
@@ -159,99 +229,117 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Invoices and Stock Summary */}
+      {/* Staff Summary & Recent Attendance */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Invoices */}
+        {/* Recent Attendance */}
         <div className="bg-white p-5 rounded-xl shadow-sm border">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-lg">Recent Invoices</h2>
-            <button className="text-sm text-indigo-600 hover:underline">
-              View All
+            <h2 className="font-semibold text-lg">Recent Attendance</h2>
+            <button
+              onClick={() => window.location.reload()}
+              className="text-sm text-indigo-600 hover:underline"
+            >
+              Refresh
             </button>
           </div>
+
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-left border-b text-gray-500">
-                  <th className="pb-2">ID</th>
-                  <th className="pb-2">Customer</th>
+                  <th className="pb-2">Name</th>
                   <th className="pb-2">Date</th>
-                  <th className="pb-2 text-right">Amount</th>
+                  <th className="pb-2 text-right">Check-In</th>
+                  <th className="pb-2 text-right">Check-Out</th>
                   <th className="pb-2 text-right">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {invoices.map((invoice, idx) => (
-                  <tr key={idx} className="hover:bg-gray-50">
-                    <td className="py-3">{invoice.id}</td>
-                    <td>{invoice.customer}</td>
-                    <td>{invoice.date}</td>
-                    <td className="text-right font-medium">{invoice.amount}</td>
-                    <td className="text-right">
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                        ${invoice.status === "Delivered"
-                            ? "bg-green-100 text-green-800"
-                            : invoice.status === "In Progress"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-red-100 text-red-800"
-                          }`}
-                      >
-                        {invoice.status}
-                      </span>
+                {loadingAttendance ? (
+                  <tr>
+                    <td colSpan={5} className="py-6 text-center text-gray-500">
+                      <FiLoader className="animate-spin inline-block mr-2" /> Loading attendance...
                     </td>
                   </tr>
-                ))}
+                ) : recentAttendance.length === 0 ? (
+                  <tr>
+                    <td colSpan={5} className="py-6 text-center text-gray-500">
+                      No recent attendance
+                    </td>
+                  </tr>
+                ) : (
+                  recentAttendance.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-gray-50">
+                      <td className="py-3">{row.name}</td>
+                      <td>{row.date}</td>
+                      <td className="text-right">{row.checkInTime || '-'}</td>
+                      <td className="text-right">{row.checkOutTime || '-'}</td>
+                      <td className="text-right">
+                        <span
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                        ${row.status === 'Checked-Out'
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-green-100 text-green-800'
+                            }`}
+                        >
+                          {row.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* Stock Summary & Alerts */}
+        {/* Staff Summary Cards */}
         <div className="space-y-6">
           <div className="bg-white p-5 rounded-xl shadow-sm border">
-            <h2 className="font-semibold text-lg mb-4">Stock Summary</h2>
+            <h2 className="font-semibold text-lg mb-4">Overview</h2>
             <div className="grid grid-cols-2 gap-4">
-              {stockSummary.map((item, idx) => (
+              {summaryCards.map((card, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg"
+                  className={`flex items-center space-x-3 p-3 ${card.color} rounded-lg`}
                 >
-                  <div className="p-2 bg-white rounded-lg shadow-xs">
-                    {item.icon}
-                  </div>
+                  <div className="p-2 bg-white rounded-lg shadow-xs">{card.icon}</div>
                   <div>
-                    <p className="text-sm text-gray-500">{item.title}</p>
-                    <p className="font-bold">{item.value}</p>
+                    <p className="text-sm text-gray-500">{card.title}</p>
+                    <p className="font-bold text-xl">
+                      {isCardLoading(card.title) ? (
+                        <FiLoader className="animate-spin text-gray-600" />
+                      ) : (
+                        card.value
+                      )}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Alerts */}
+          {/* Alerts (placeholder for HR alerts) */}
           <div className="bg-white p-5 rounded-xl shadow-sm border">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="font-semibold text-lg">Stock Alerts</h2>
-              <button className="text-sm text-indigo-600 hover:underline">
-                Manage
-              </button>
+              <h2 className="font-semibold text-lg">HR Alerts</h2>
+              <button className="text-sm text-indigo-600 hover:underline">Manage</button>
             </div>
             <div className="space-y-3">
-              {alerts.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center justify-between p-3 bg-red-50 rounded-lg"
-                >
-                  <div className="flex items-center space-x-3">
-                    {item.icon}
-                    <span className="font-medium">{item.product}</span>
-                  </div>
-                  <span className="font-bold text-red-600">
-                    Only {item.qty} left
-                  </span>
+              <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <FiAlertTriangle className="text-yellow-500" />
+                  <span className="font-medium">Pending Approvals</span>
                 </div>
-              ))}
+                <span className="font-bold text-yellow-600">3</span>
+              </div>
+              <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <FiAlertTriangle className="text-red-500" />
+                  <span className="font-medium">Low Attendance Records</span>
+                </div>
+                <span className="font-bold text-red-600">2</span>
+              </div>
             </div>
           </div>
         </div>

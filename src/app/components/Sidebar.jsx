@@ -15,7 +15,7 @@ export default function Sidebar() {
   const navItems = [
     { name: 'Dashboard', icon: FiHome, path: '/dashboard' },
     { name: 'Check In', icon: FiClock, path: '/dashboard/checkIn' },
-    { name: 'Check Out', icon: FiClock, path: '/dashboard/CheckOut' },
+    { name: 'Check Out', icon: FiClock, path: '/dashboard/checkout' },
     { name: 'Attendance', icon: FiClock, path: '/dashboard/attendance' },
     // { name: 'Sales', icon: FiShoppingCart, path: '/dashboard/sales' },
     // { name: 'Purchases', icon: FiShoppingBag, path: '/dashboard/purchases' },

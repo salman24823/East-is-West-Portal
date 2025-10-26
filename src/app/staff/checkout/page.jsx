@@ -1,5 +1,6 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import {
   FiUser,
@@ -12,10 +13,14 @@ import {
 import { toast } from 'react-toastify';
 
 export default function CheckOutPage() {
+
+  const { data: session, status } = useSession();
+
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
-    name: '',
+    // session is undefined on the first render; use optional chaining and fallback
+    name: session?.user?.name || '',
     date: new Date().toISOString().split('T')[0],
     time: '',
     location: '',
@@ -26,13 +31,22 @@ export default function CheckOutPage() {
     fetchAttendanceRecords();
   }, []);
 
+  // When session arrives (it may be undefined on first render), populate name
+  useEffect(() => {
+    if (session?.user?.name) {
+      setFormData((prev) => ({ ...prev, name: session.user.name }));
+    }
+  }, [session]);
+
   const fetchAttendanceRecords = async () => {
     try {
       const res = await fetch('/api/checkout');
+      if (!res.ok) throw new Error('Failed to fetch attendance records');
       const data = await res.json();
-      setAttendanceRecords(data);
+      setAttendanceRecords(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error('Error fetching records:', error);
+      console.error('Error fetching attendance records:', error);
+      setAttendanceRecords([]);
     }
   };
 
@@ -123,9 +137,9 @@ export default function CheckOutPage() {
         <div className="bg-white rounded-xl shadow-sm overflow-hidden ">
 
           <div className="bg-[#111827] p-2 text-white flex justify-between items-center">
-          <h2 className="text-1xl font-bold ml-4">Employee Check-Out</h2>
-          <p className="text-indigo-100 mt-1 mr-4">Record your daily check-out</p>
-        </div>
+            <h2 className="text-1xl font-bold ml-4">Employee Check-Out</h2>
+            <p className="text-indigo-100 mt-1 mr-4">Record your daily check-out</p>
+          </div>
 
 
           {/* Form */}
@@ -141,11 +155,10 @@ export default function CheckOutPage() {
                   value={formData.name}
                   onChange={handleChange}
                   type="text"
-                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                    errors.name
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${errors.name
                       ? 'border-red-300 focus:ring-red-200'
                       : 'border-gray-300 focus:ring-[#a87903]'
-                  }`}
+                    }`}
                   placeholder="Enter your full name"
                   required
                 />
@@ -195,11 +208,10 @@ export default function CheckOutPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full md:w-auto md:px-8 py-3 rounded-lg font-semibold text-white transition-all flex items-center justify-center ${
-                loading
+              className={`w-full md:w-auto md:px-8 py-3 rounded-lg font-semibold text-white transition-all flex items-center justify-center ${loading
                   ? 'bg-indigo-400 cursor-not-allowed'
                   : 'bg-[#0e0e0e] shadow-md hover:bg-[#1d1d1d]'
-              }`}
+                }`}
             >
               {loading ? (
                 <>

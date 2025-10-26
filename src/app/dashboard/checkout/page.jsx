@@ -314,10 +314,12 @@ export default function CheckOutPage() {
   const fetchAttendanceRecords = async () => {
     try {
       const res = await fetch('/api/checkout');
+      if (!res.ok) throw new Error('Failed to fetch attendance records');
       const data = await res.json();
-      setAttendanceRecords(data);
+      setAttendanceRecords(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error('Error fetching records:', error);
+      console.error('Error fetching attendance records:', error);
+      setAttendanceRecords([]);
     }
   };
 
