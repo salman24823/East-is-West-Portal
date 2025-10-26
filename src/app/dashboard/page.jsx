@@ -167,7 +167,7 @@ export default function Dashboard() {
         <div className="bg-white p-5 rounded-xl shadow-sm border">
           <div className="flex justify-between items-center mb-4">
             <h2 className="font-semibold text-lg"> 
-              <Link href="/staff/attendance" className="hover:underline">
+              <Link href="/dashboard/attendance" className="hover:underline">
                Recent Attendance
               </Link>
                
@@ -247,7 +247,7 @@ export default function Dashboard() {
                   <div className="p-2 bg-white rounded-lg shadow-xs">{card.icon}</div>
                   <div>
                     <p className="text-sm text-gray-500">
-                      <Link href={card.title === "Total Expense" ? "/dashboard/expenses" : card.title === "Total Employees" ? "/dashboard/employees" : "/dashboard/staff/attendance"} className="hover:underline">
+                      <Link href={card.title === "Total Expense" ? "/dashboard/expenses" : card.title === "Total Employees" ? "/dashboard/employees" : "/dashboard/attendance"} className="hover:underline">
                       {card.title}
                       </Link>
                       </p>

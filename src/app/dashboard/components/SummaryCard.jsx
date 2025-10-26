@@ -8,7 +8,7 @@ export default function SummaryCard({ title, value, change, isPositive, icon, co
       <div>
         <p className="text-sm font-medium text-gray-600">
 
-          <Link href={title === "Total Expense" ? "/dashboard/expenses" : title === "Total Employees" ? "/dashboard/employees" : "/dashboard/staff/attendance"} className="hover:underline">
+          <Link href={title === "Total Expense" ? "/dashboard/expenses" : title === "Total Employees" ? "/dashboard/employees" : "/dashboard/attendance"} className="hover:underline">
             {title}
           </Link>
 
