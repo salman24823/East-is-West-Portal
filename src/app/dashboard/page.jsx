@@ -19,6 +19,7 @@ import {
 import { useSession } from "next-auth/react";
 import { EarIcon, EarthIcon, Facebook, Instagram, Youtube } from "lucide-react";
 import SocialLinksSection from "../components/Links";
+import Link from "next/link";
 
 export default function Dashboard() {
   const [totalExpense, setTotalExpense] = useState(0);
@@ -165,7 +166,12 @@ export default function Dashboard() {
         {/* Recent Attendance */}
         <div className="bg-white p-5 rounded-xl shadow-sm border">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-lg">Recent Attendance</h2>
+            <h2 className="font-semibold text-lg"> 
+              <Link href="/staff/attendance" className="hover:underline">
+               Recent Attendance
+              </Link>
+               
+               </h2>
             <button
               onClick={() => window.location.reload()}
               className="text-sm text-indigo-600 hover:underline"
@@ -227,7 +233,11 @@ export default function Dashboard() {
         {/* Staff Summary Cards */}
         <div className="space-y-6">
           <div className="bg-white p-5 rounded-xl shadow-sm border">
-            <h2 className="font-semibold text-lg mb-4">Overview</h2>
+            <h2 className="font-semibold text-lg mb-4">
+              
+              Overview
+              
+              </h2>
             <div className="grid grid-cols-2 gap-4">
               {summaryCards.map((card, idx) => (
                 <div
@@ -236,7 +246,11 @@ export default function Dashboard() {
                 >
                   <div className="p-2 bg-white rounded-lg shadow-xs">{card.icon}</div>
                   <div>
-                    <p className="text-sm text-gray-500">{card.title}</p>
+                    <p className="text-sm text-gray-500">
+                      <Link href={card.title === "Total Expense" ? "/dashboard/expenses" : card.title === "Total Employees" ? "/dashboard/employees" : "/dashboard/staff/attendance"} className="hover:underline">
+                      {card.title}
+                      </Link>
+                      </p>
                     <p className="font-bold text-xl">
                       {isCardLoading(card.title) ? (
                         <FiLoader className="animate-spin text-gray-600" />
@@ -254,7 +268,9 @@ export default function Dashboard() {
           <div className="bg-white p-5 rounded-xl shadow-sm border">
             <div className="flex justify-between items-center mb-4">
               <h2 className="font-semibold text-lg">HR Alerts</h2>
-              <button className="text-sm text-indigo-600 hover:underline">Manage</button>
+              <Link href={"/dashboard/employees"} className="text-sm text-indigo-600 hover:underline">
+                Manage
+                </Link>
             </div>
             <div className="space-y-3">
               <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
