@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 export default function ProfilePage() {
   return (
-    <div className="bg-gray-100 min-h-screen p-4">
+    <main className="min-h-screen p-4">
 
       <div className="relative w-full h-60 rounded-lg overflow-hidden">
         <img
@@ -20,18 +20,18 @@ export default function ProfilePage() {
             alt="Avatar"
             width={120}
             height={120}
-            className="rounded-full border-4 border-white object-cover"
+            className="rounded-full border-4 border-[#f7e9ae] object-cover"
           />
         </div>
       </div>
 
       <div className="pt-20 pl-6">
-        <h1 className="text-2xl font-bold text-black">John don24</h1>
-        <p className="text-gray-500">CTO</p>
+        <h1 className="text-2xl font-bold text-[#000000]">John don24</h1>
+        <p className="text-[#000000]/70">CTO</p>
       </div>
 
 
-      <div className="mt-4 px-6 flex space-x-8 border-b">
+      <div className="mt-4 px-6 flex space-x-8 border-b border-[#f7e9ae]/30">
         {[
           ['Profile', '🧾'],
           ['Followers', '❤️'],
@@ -40,8 +40,8 @@ export default function ProfilePage() {
         ].map(([label, icon], i) => (
           <button
             key={i}
-            className={`pb-2 flex items-center space-x-2 text-gray-600 font-medium ${
-              label === 'Profile' ? 'border-b-2 border-black text-black' : ''
+            className={`pb-2 flex items-center space-x-2 text-[#000000]/70 font-medium ${
+              label === 'Profile' ? 'border-b-2 border-[#000000] text-[#000000]' : ''
             }`}
           >
             <span>{icon}</span>
@@ -52,43 +52,43 @@ export default function ProfilePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 px-6">
       
-        <div className="bg-white rounded-xl p-6 shadow">
+        <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-6 shadow-2xl border border-[#f7e9ae]/50">
           <div className="flex justify-between text-center">
             <div>
-              <div className="text-2xl font-bold text-black">1,947</div>
-              <div className="text-sm text-gray-500">Follower</div>
+              <div className="text-2xl font-bold text-[#000000]">1,947</div>
+              <div className="text-sm text-[#000000]/70">Follower</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-black">9,124</div>
-              <div className="text-sm text-gray-500">Following</div>
+              <div className="text-2xl font-bold text-[#000000]">9,124</div>
+              <div className="text-sm text-[#000000]/70">Following</div>
             </div>
           </div>
         </div>
 
-        <div className="md:col-span-2 bg-white rounded-xl p-6 shadow text-black">
+        <div className="md:col-span-2 backdrop-blur-xl bg-white/10 rounded-3xl p-6 shadow-2xl border border-[#f7e9ae]/50 text-[#000000]">
           Feedback
   <textarea
     rows={3}
     placeholder="Share what you are thinking here..."
-    className="w-full p-3 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#a87903]"
+    className="w-full p-3 border border-[#f7e9ae]/50 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#c88e3b] bg-[#f7e9ae]/20 text-[#000000] placeholder-[#000000]/50"
   />
 
   <div className="flex justify-between items-center mt-4">
   <form action="#" className="w-full space-y-4">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="flex flex-col">
-        <label className="mb-1 text-sm font-medium text-gray-700">First Name</label>
+        <label className="mb-1 text-sm font-medium text-[#000000]">First Name</label>
         <input
-          className="border-2 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#a87903]"
+          className="border border-[#f7e9ae]/50 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#c88e3b] bg-[#f7e9ae]/20 text-[#000000] placeholder-[#000000]/50"
           type="text"
           placeholder="First name"
         />
       </div>
 
       <div className="flex flex-col">
-        <label className="mb-1 text-sm font-medium text-gray-700">Last Name</label>
+        <label className="mb-1 text-sm font-medium text-[#000000]">Last Name</label>
         <input
-          className="border-2 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#a87903]"
+          className="border border-[#f7e9ae]/50 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#c88e3b] bg-[#f7e9ae]/20 text-[#000000] placeholder-[#000000]/50"
           type="text"
           placeholder="Last name"
         />
@@ -97,18 +97,18 @@ export default function ProfilePage() {
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="flex flex-col">
-        <label className="mb-1 text-sm font-medium text-gray-700">Username</label>
+        <label className="mb-1 text-sm font-medium text-[#000000]">Username</label>
         <input
-          className="border-2 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#a87903]"
+          className="border border-[#f7e9ae]/50 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#c88e3b] bg-[#f7e9ae]/20 text-[#000000] placeholder-[#000000]/50"
           type="text"
           placeholder="Enter Username"
         />
       </div>
 
       <div className="flex flex-col">
-        <label className="mb-1 text-sm font-medium text-gray-700">Password</label>
+        <label className="mb-1 text-sm font-medium text-[#000000]">Password</label>
         <input
-          className="border-2 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#a87903]"
+          className="border border-[#f7e9ae]/50 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-[#c88e3b] bg-[#f7e9ae]/20 text-[#000000] placeholder-[#000000]/50"
           type="password"
           placeholder="Enter password"
         />
@@ -117,7 +117,7 @@ export default function ProfilePage() {
 
     <button
       type="submit"
-      className="bg-[#111827] text-white px-6 py-2 rounded-lg mt-2 hover:bg-[#1a2336] transition"
+      className="bg-[#000000] text-white px-6 py-2 rounded-lg mt-2 hover:bg-[#1a1a1a] transition"
     >
       Submit
     </button>
@@ -128,12 +128,12 @@ export default function ProfilePage() {
 
       </div>
       <div className="mt-6 px-6">
-        <div className="bg-white rounded-xl p-6 shadow w-full md:w-1/2">
-          <h2 className="text-lg font-semibold mb-2 text-black">About</h2>
-          <p className="text-gray-600">
+        <div className="backdrop-blur-xl bg-white/10 rounded-3xl p-6 shadow-2xl border border-[#f7e9ae]/50 w-full md:w-1/2">
+          <h2 className="text-lg font-semibold mb-2 text-[#000000]">About</h2>
+          <p className="text-[#000000]/70">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

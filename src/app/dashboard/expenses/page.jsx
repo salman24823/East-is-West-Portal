@@ -76,37 +76,37 @@ export default function ExpensePage() {
   const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0).toFixed(2);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 to-indigo-50 p-6">
+    <main className="min-h-screen w-full p-6">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-          <div className="bg-[#111827] p-2 text-white flex justify-between items-center">
+        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl overflow-hidden border border-[#f7e9ae]/50">
+          <div className="bg-[#000000] p-2 text-white flex justify-between items-center">
             <h2 className="text-1xl font-bold ml-4">Expense Manager</h2>
-            <p className="text-indigo-100 mt-1 mr-4">Track your spending easily</p>
+            <p className="text-[#f7e9ae] mt-1 mr-4">Track your spending easily</p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleAddExpense} className="p-6 space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1">Expense Title</label>
+                <label className="text-sm font-medium text-[#000000] mb-1">Expense Title</label>
                 <input
                   type="text"
                   value={item}
                   onChange={(e) => setItem(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a87903]"
+                  className="w-full px-4 py-2 border border-[#f7e9ae]/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c88e3b] bg-[#f7e9ae]/20 text-[#000000] placeholder-[#000000]/50"
                   placeholder="e.g. Grocery, Netflix"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1">Amount ($)</label>
+                <label className="text-sm font-medium text-[#000000] mb-1">Amount ($)</label>
                 <input
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a87903]"
+                  className="w-full px-4 py-2 border border-[#f7e9ae]/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c88e3b] bg-[#f7e9ae]/20 text-[#000000] placeholder-[#000000]/50"
                   placeholder="e.g. 50.00"
                   required
                 />
@@ -115,7 +115,7 @@ export default function ExpensePage() {
               <div className="flex items-end">
                 <button
                   type="submit"
-                  className="w-full bg-[#0e0e0e] hover:bg-[#1d1d1d] text-white px-8 py-3 rounded-lg font-semibold shadow-md"
+                  className="w-full bg-[#000000] hover:bg-[#1a1a1a] text-white px-8 py-3 rounded-lg font-semibold shadow-md"
                 >
                   Add Expense
                 </button>
@@ -125,38 +125,38 @@ export default function ExpensePage() {
         </div>
 
         {/* Total */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="text-xl font-bold text-gray-700">Total Expenses</h2>
-          <p className="text-4xl font-bold text-gray-900 mt-2">${totalExpenses}</p>
+        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl p-6 border border-[#f7e9ae]/50">
+          <h2 className="text-xl font-bold text-[#000000]">Total Expenses</h2>
+          <p className="text-4xl font-bold text-[#000000] mt-2">${totalExpenses}</p>
         </div>
 
         {/* Expense List */}
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
-          <h2 className="text-xl font-bold mb-4 text-gray-700">Expense History</h2>
+        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl overflow-hidden p-6 border border-[#f7e9ae]/50">
+          <h2 className="text-xl font-bold mb-4 text-[#000000]">Expense History</h2>
 
           {expenses.length === 0 ? (
-            <p className="text-center py-8 text-gray-700">No expenses added yet.</p>
+            <p className="text-center py-8 text-[#000000]/70">No expenses added yet.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-[#f7e9ae]/30">
+                <thead className="bg-[#c88e3b]/20">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-[#000000] uppercase tracking-wider">Item</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-[#000000] uppercase tracking-wider">Amount</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-[#000000] uppercase tracking-wider">Date</th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-[#000000] uppercase tracking-wider">Action</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-transparent divide-y divide-[#f7e9ae]/20">
                   {expenses.map((exp, i) => (
-                    <tr key={exp._id || i} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm text-gray-800">{exp.item}</td>
-                      <td className="px-6 py-4 text-sm font-bold text-gray-900">${exp.amount.toFixed(2)}</td>
-                      <td className="px-6 py-4 text-sm text-gray-500">{exp.date}</td>
+                    <tr key={exp._id || i} className="hover:bg-[#f7e9ae]/20">
+                      <td className="px-6 py-4 text-sm text-[#000000]">{exp.item}</td>
+                      <td className="px-6 py-4 text-sm font-bold text-[#000000]">${exp.amount.toFixed(2)}</td>
+                      <td className="px-6 py-4 text-sm text-[#000000]/70">{exp.date}</td>
                       <td className="px-6 py-4 text-right">
                         <button
                           onClick={() => handleDeleteExpense(i)}
-                          className="text-red-500 hover:text-red-600 transition"
+                          className="text-[#000000] hover:text-[#c88e3b] transition"
                         >
                           <FaTrash />
                         </button>
@@ -171,21 +171,15 @@ export default function ExpensePage() {
       </div>
 
       {/* Notification */}
-      <AnimatePresence>
-        {notification && (
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.3 }}
-            className={`fixed top-4 right-4 px-6 py-3 rounded-md shadow-lg text-white z-50 ${
-              notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'
-            }`}
-          >
-            {notification.message}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+      {notification && (
+        <div
+          className={`fixed top-4 right-4 px-6 py-3 rounded-md shadow-lg text-white z-50 ${
+            notification.type === 'success' ? 'bg-[#c88e3b]' : 'bg-red-500'
+          }`}
+        >
+          {notification.message}
+        </div>
+      )}
+    </main>
   );
 }

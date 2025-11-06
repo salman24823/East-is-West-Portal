@@ -82,20 +82,20 @@ export default function EmployeeSalaryPage() {
     return absentDays.length;
   };
 
-  if (loading) return <div className="p-10 text-center">Loading...</div>;
-  if (!employee) return <div className="p-10 text-center text-red-500">Employee not found.</div>;
+  if (loading) return <div className="p-10 text-center text-[#000000]/70">Loading...</div>;
+  if (!employee) return <div className="p-10 text-center text-[#c88e3b]">Employee not found.</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 flex flex-col md:flex-row gap-6">
+    <main className="min-h-screen p-6 flex flex-col md:flex-row gap-6">
       {/* Main Content */}
-      <div className="w-full md:w-2/3 bg-white p-6 rounded-xl shadow">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+      <div className="w-full md:w-2/3 backdrop-blur-xl bg-white/10 p-6 rounded-3xl shadow-2xl border border-[#f7e9ae]/50">
+        <h1 className="text-2xl font-bold text-[#000000] mb-4 flex items-center">
           <FiUser className="mr-2" /> {employee.fullname || employee.name}
         </h1>
 
-        <p className="mb-2 text-gray-600 flex items-center">
+        <p className="mb-2 text-[#000000]/70 flex items-center">
           <FiCalendar className="mr-2" /> Weekly Absents:{' '}
-          <strong className="ml-2 text-black">{getWeeklyAbsent()}</strong>
+          <strong className="ml-2 text-[#000000]">{getWeeklyAbsent()}</strong>
         </p>
 
         <div className="flex items-center mb-4">
@@ -106,21 +106,21 @@ export default function EmployeeSalaryPage() {
                 type="number"
                 value={newPay}
                 onChange={(e) => setNewPay(e.target.value)}
-                className="border px-2 py-1 rounded mr-2 w-28"
+                className="border border-[#f7e9ae]/50 px-2 py-1 rounded mr-2 w-28 bg-[#f7e9ae]/20 text-[#000000]"
               />
               <button
                 onClick={handlePaySave}
-                className="bg-green-600 text-white px-3 py-1 rounded flex items-center"
+                className="bg-[#c88e3b] text-white px-3 py-1 rounded flex items-center"
               >
                 <FiSave className="mr-1" /> Save
               </button>
             </>
           ) : (
             <>
-              <span className="text-black font-semibold text-lg">€{weeklyPay}</span>
+              <span className="text-[#000000] font-semibold text-lg">€{weeklyPay}</span>
               <button
                 onClick={() => setEditingPay(true)}
-                className="ml-4 text-sm text-blue-500 flex items-center"
+                className="ml-4 text-sm text-[#c88e3b] flex items-center"
               >
                 <FiEdit2 className="mr-1" /> Edit
               </button>
@@ -128,23 +128,23 @@ export default function EmployeeSalaryPage() {
           )}
         </div>
 
-        <h2 className="text-lg font-semibold text-gray-700 mt-6 mb-2">Past 7 Days Attendance</h2>
+        <h2 className="text-lg font-semibold text-[#000000] mt-6 mb-2">Past 7 Days Attendance</h2>
         <table className="w-full table-auto text-sm mt-2">
           <thead>
-            <tr className="bg-gray-100">
-              <th className="px-3 py-2 text-left">Date</th>
-              <th className="px-3 py-2 text-left">Check-In</th>
-              <th className="px-3 py-2 text-left">Check-Out</th>
-              <th className="px-3 py-2 text-left">Time Spent</th>
+            <tr className="bg-[#c88e3b]/20">
+              <th className="px-3 py-2 text-left text-[#000000] font-semibold">Date</th>
+              <th className="px-3 py-2 text-left text-[#000000] font-semibold">Check-In</th>
+              <th className="px-3 py-2 text-left text-[#000000] font-semibold">Check-Out</th>
+              <th className="px-3 py-2 text-left text-[#000000] font-semibold">Time Spent</th>
             </tr>
           </thead>
           <tbody>
             {attendance.map((record, i) => (
-              <tr key={i} className="border-b">
-                <td className="px-3 py-2">{record.date}</td>
-                <td className="px-3 py-2">{record.checkInTime || '-'}</td>
-                <td className="px-3 py-2">{record.checkOutTime || '-'}</td>
-                <td className="px-3 py-2">{record.timeSpent || '-'}</td>
+              <tr key={i} className="border-b border-[#f7e9ae]/20">
+                <td className="px-3 py-2 text-[#000000]">{record.date}</td>
+                <td className="px-3 py-2 text-[#000000]">{record.checkInTime || '-'}</td>
+                <td className="px-3 py-2 text-[#000000]">{record.checkOutTime || '-'}</td>
+                <td className="px-3 py-2 text-[#000000]">{record.timeSpent || '-'}</td>
               </tr>
             ))}
           </tbody>
@@ -152,21 +152,21 @@ export default function EmployeeSalaryPage() {
       </div>
 
       {/* Sidebar */}
-      <div className="w-full md:w-1/3 md:sticky md:top-6 md:self-start bg-white p-6 rounded-xl shadow h-fit">
-        <h3 className="text-lg font-bold mb-4">Pay History</h3>
-        <ul className="space-y-2 text-sm text-gray-700 max-h-96 overflow-y-auto">
+      <div className="w-full md:w-1/3 md:sticky md:top-6 md:self-start backdrop-blur-xl bg-white/10 p-6 rounded-3xl shadow-2xl border border-[#f7e9ae]/50 h-fit">
+        <h3 className="text-lg font-bold mb-4 text-[#000000]">Pay History</h3>
+        <ul className="space-y-2 text-sm text-[#000000]/70 max-h-96 overflow-y-auto">
           {payHistory.length === 0 && <li>No pay history available</li>}
           {payHistory
             .slice()
             .reverse()
             .map((entry, i) => (
-              <li key={i} className="border p-2 rounded-md">
+              <li key={i} className="border border-[#f7e9ae]/30 p-2 rounded-md">
                 €{entry.amount} —{' '}
-                <span className="text-xs text-gray-500">{new Date(entry.date).toLocaleString()}</span>
+                <span className="text-xs text-[#000000]/50">{new Date(entry.date).toLocaleString()}</span>
               </li>
             ))}
         </ul>
       </div>
-    </div>
+    </main>
   );
 }

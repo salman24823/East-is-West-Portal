@@ -111,32 +111,32 @@ export default function Dashboard() {
       value: activeEmployees,
       change: "—",
       isPositive: true,
-      icon: <FiCheckCircle className="text-green-500 text-2xl" />,
-      color: "bg-green-100",
+      icon: <FiCheckCircle className="text-[#c88e3b] text-2xl" />,
+      color: "bg-[#c88e3b]/20",
     },
     {
       title: "Today's Check-Ins",
       value: todayCheckins,
       change: "—",
       isPositive: true,
-      icon: <FiClock className="text-yellow-500 text-2xl" />,
-      color: "bg-yellow-100",
+      icon: <FiClock className="text-[#f7e9ae] text-2xl" />,
+      color: "bg-[#f7e9ae]/20",
     },
     {
       title: "Today's Check-Outs",
       value: todayCheckouts,
       change: "—",
       isPositive: true,
-      icon: <FiTrendingDown className="text-blue-500 text-2xl" />,
-      color: "bg-blue-100",
+      icon: <FiTrendingDown className="text-[#c88e3b] text-2xl" />,
+      color: "bg-[#c88e3b]/20",
     },
     {
       title: "Total Expense",
       value: `$${totalExpense.toLocaleString()}`,
       change: "—",
       isPositive: false,
-      icon: <FiDollarSign className="text-red-500 text-2xl" />,
-      color: "bg-red-100",
+      icon: <FiDollarSign className="text-[#000000] text-2xl" />,
+      color: "bg-[#000000]/10",
     },
   ];
 
@@ -150,7 +150,7 @@ export default function Dashboard() {
 
   return (
     <main className="flex-1 p-6 space-y-6 overflow-auto">
-      <h1 className="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
+      <h1 className="text-2xl font-bold text-[#000000]">Dashboard Overview</h1>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -164,9 +164,9 @@ export default function Dashboard() {
       {/* Staff Summary & Recent Attendance */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Attendance */}
-        <div className="bg-white p-5 rounded-xl shadow-sm border">
+        <div className="backdrop-blur-xl bg-white/10 p-5 rounded-3xl shadow-2xl border border-[#f7e9ae]/50">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-lg"> 
+            <h2 className="font-semibold text-lg text-[#000000]"> 
               <Link href="/dashboard/attendance" className="hover:underline">
                Recent Attendance
               </Link>
@@ -174,7 +174,7 @@ export default function Dashboard() {
                </h2>
             <button
               onClick={() => window.location.reload()}
-              className="text-sm text-indigo-600 hover:underline"
+              className="text-sm text-[#c88e3b] hover:underline"
             >
               Refresh
             </button>
@@ -183,7 +183,7 @@ export default function Dashboard() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left border-b text-gray-500">
+                <tr className="text-left border-b border-[#f7e9ae]/30 text-[#000000]/70">
                   <th className="pb-2">Name</th>
                   <th className="pb-2">Date</th>
                   <th className="pb-2 text-right">Check-In</th>
@@ -191,32 +191,32 @@ export default function Dashboard() {
                   <th className="pb-2 text-right">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y">
+              <tbody className="divide-y divide-[#f7e9ae]/20">
                 {loadingAttendance ? (
                   <tr>
-                    <td colSpan={5} className="py-6 text-center text-gray-500">
+                    <td colSpan={5} className="py-6 text-center text-[#000000]/70">
                       <FiLoader className="animate-spin inline-block mr-2" /> Loading attendance...
                     </td>
                   </tr>
                 ) : recentAttendance.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="py-6 text-center text-gray-500">
+                    <td colSpan={5} className="py-6 text-center text-[#000000]/70">
                       No recent attendance
                     </td>
                   </tr>
                 ) : (
                   recentAttendance.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-gray-50">
-                      <td className="py-3">{row.name}</td>
-                      <td>{row.date}</td>
-                      <td className="text-right">{row.checkInTime || '-'}</td>
-                      <td className="text-right">{row.checkOutTime || '-'}</td>
+                    <tr key={idx} className="hover:bg-[#f7e9ae]/20">
+                      <td className="py-3 text-[#000000]">{row.name}</td>
+                      <td className="text-[#000000]">{row.date}</td>
+                      <td className="text-right text-[#000000]">{row.checkInTime || '-'}</td>
+                      <td className="text-right text-[#000000]">{row.checkOutTime || '-'}</td>
                       <td className="text-right">
                         <span
                           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                         ${row.status === 'Checked-Out'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : 'bg-green-100 text-green-800'
+                              ? 'bg-[#f7e9ae]/50 text-[#000000]'
+                              : 'bg-[#c88e3b]/50 text-[#000000]'
                             }`}
                         >
                           {row.status}
@@ -232,8 +232,8 @@ export default function Dashboard() {
 
         {/* Staff Summary Cards */}
         <div className="space-y-6">
-          <div className="bg-white p-5 rounded-xl shadow-sm border">
-            <h2 className="font-semibold text-lg mb-4">
+          <div className="backdrop-blur-xl bg-white/10 p-5 rounded-3xl shadow-2xl border border-[#f7e9ae]/50">
+            <h2 className="font-semibold text-lg mb-4 text-[#000000]">
               
               Overview
               
@@ -242,18 +242,18 @@ export default function Dashboard() {
               {summaryCards.map((card, idx) => (
                 <div
                   key={idx}
-                  className={`flex items-center space-x-3 p-3 ${card.color} rounded-lg`}
+                  className={`flex items-center space-x-3 p-3 bg-[#f7e9ae]/20 rounded-lg`}
                 >
-                  <div className="p-2 bg-white rounded-lg shadow-xs">{card.icon}</div>
+                  <div className="p-2 bg-white/50 rounded-lg shadow-xs">{card.icon}</div>
                   <div>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-[#000000]/70">
                       <Link href={card.title === "Total Expense" ? "/dashboard/expenses" : card.title === "Total Employees" ? "/dashboard/employees" : "/dashboard/attendance"} className="hover:underline">
                       {card.title}
                       </Link>
                       </p>
-                    <p className="font-bold text-xl">
+                    <p className="font-bold text-xl text-[#000000]">
                       {isCardLoading(card.title) ? (
-                        <FiLoader className="animate-spin text-gray-600" />
+                        <FiLoader className="animate-spin text-[#c88e3b]" />
                       ) : (
                         card.value
                       )}
@@ -265,25 +265,25 @@ export default function Dashboard() {
           </div>
 
           {/* Alerts (placeholder for HR alerts) */}
-          <div className="bg-white p-5 rounded-xl shadow-sm border">
+          <div className="backdrop-blur-xl bg-white/10 p-5 rounded-3xl shadow-2xl border border-[#f7e9ae]/50">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="font-semibold text-lg">HR Alerts</h2>
-              <Link href={"/dashboard/employees"} className="text-sm text-indigo-600 hover:underline">
+              <h2 className="font-semibold text-lg text-[#000000]">HR Alerts</h2>
+              <Link href={"/dashboard/employees"} className="text-sm text-[#c88e3b] hover:underline">
                 Manage
                 </Link>
             </div>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-[#f7e9ae]/30 rounded-lg">
                 <div className="flex items-center space-x-3">
-                  <FiAlertTriangle className="text-yellow-500" />
-                  <span className="font-medium">Pending Approvals</span>
+                  <FiAlertTriangle className="text-[#c88e3b]" />
+                  <span className="font-medium text-[#000000]">Pending Approvals</span>
                 </div>
-                <span className="font-bold text-yellow-600">3</span>
+                <span className="font-bold text-[#c88e3b]">3</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <FiAlertTriangle className="text-red-500" />
-                  <span className="font-medium">Low Attendance Records</span>
+                  <span className="font-medium text-[#000000]">Low Attendance Records</span>
                 </div>
                 <span className="font-bold text-red-600">2</span>
               </div>

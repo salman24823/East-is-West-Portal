@@ -404,14 +404,14 @@ export default function CheckOutPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 to-indigo-50 p-6">
+    <main className="flex-1 p-6">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden ">
+        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl overflow-hidden border border-[#f7e9ae]/50">
 
-          <div className="bg-[#111827] p-2 text-white flex justify-between items-center">
+          <div className="bg-[#000000] p-2 text-white flex justify-between items-center">
           <h2 className="text-1xl font-bold ml-4">Employee Check-Out</h2>
-          <p className="text-indigo-100 mt-1 mr-4">Record your daily check-out</p>
+          <p className="text-[#f7e9ae] mt-1 mr-4">Record your daily check-out</p>
         </div>
 
 
@@ -420,7 +420,7 @@ export default function CheckOutPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {/* Name */}
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
+                <label className="text-sm font-medium text-[#000000] mb-1 flex items-center">
                   <FiUser className="mr-2" /> Employee Name
                 </label>
                 <input
@@ -431,8 +431,8 @@ export default function CheckOutPage() {
                   className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                     errors.name
                       ? 'border-red-300 focus:ring-red-200'
-                      : 'border-gray-300 focus:ring-[#a87903]'
-                  }`}
+                      : 'border-[#f7e9ae]/50 focus:ring-[#c88e3b]'
+                  } bg-[#f7e9ae]/20 text-[#000000] placeholder-[#000000]/50`}
                   placeholder="Enter your full name"
                   required
                 />
@@ -443,20 +443,20 @@ export default function CheckOutPage() {
 
               {/* Date */}
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
+                <label className="text-sm font-medium text-[#000000] mb-1 flex items-center">
                   <FiCalendar className="mr-2" /> Date
                 </label>
-                <div className="w-full px-4 py-2 border text-gray-400 rounded-lg bg-gray-50">
+                <div className="w-full px-4 py-2 border border-[#f7e9ae]/50 text-[#000000]/70 rounded-lg bg-[#f7e9ae]/20">
                   {new Date().toLocaleDateString()}
                 </div>
               </div>
 
               {/* Time */}
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
+                <label className="text-sm font-medium text-[#000000] mb-1 flex items-center">
                   <FiClock className="mr-2" /> Time
                 </label>
-                <div className="w-full px-4 py-2 border text-gray-400 rounded-lg bg-gray-50">
+                <div className="w-full px-4 py-2 border border-[#f7e9ae]/50 text-[#000000]/70 rounded-lg bg-[#f7e9ae]/20">
                   {new Date().toLocaleTimeString([], {
                     hour: '2-digit',
                     minute: '2-digit',
@@ -466,13 +466,13 @@ export default function CheckOutPage() {
             </div>
 
             {/* Location Info */}
-            <div className="bg-blue-50 p-3 rounded-lg flex items-start">
-              <FiMapPin className="text-blue-500 mt-1 mr-2 flex-shrink-0" />
+            <div className="bg-[#c88e3b]/20 p-3 rounded-lg flex items-start">
+              <FiMapPin className="text-[#000000] mt-1 mr-2 flex-shrink-0" />
               <div>
-                <p className="text-sm font-medium text-blue-800">
+                <p className="text-sm font-medium text-[#000000]">
                   Location Tracking
                 </p>
-                <p className="text-xs text-blue-600">
+                <p className="text-xs text-[#000000]/70">
                   Your current location will be automatically recorded
                 </p>
               </div>
@@ -484,8 +484,8 @@ export default function CheckOutPage() {
               disabled={loading}
               className={`w-full md:w-auto md:px-8 py-3 rounded-lg font-semibold text-white transition-all flex items-center justify-center ${
                 loading
-                  ? 'bg-indigo-400 cursor-not-allowed'
-                  : 'bg-[#0e0e0e] shadow-md hover:bg-[#1d1d1d]'
+                  ? 'bg-[#c88e3b]/50 cursor-not-allowed'
+                  : 'bg-[#000000] shadow-md hover:bg-[#1a1a1a]'
               }`}
             >
               {loading ? (
