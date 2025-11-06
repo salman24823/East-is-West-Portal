@@ -44,11 +44,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-50 px-4 py-8">
-      <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 max-w-md w-full transition-all duration-300 hover:shadow-2xl">
-        {/* Logo */}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#f7e9ae] to-[#c88e3b] px-4 py-8 overflow-y-auto">
+      <div className="p-6 sm:p-8 w-full sm:max-w-md sm:bg-white sm:rounded-3xl sm:shadow-lg transition-all duration-300 sm:hover:shadow-xl border sm:border-[#f7e9ae]">
         <div className="flex justify-center mb-6">
-          <div className="w-16 h-16 text-2xl font-bold rounded-full flex items-center justify-center shadow-md">
+          <div className="w-16 h-16 text-2xl font-bold rounded-full flex items-center justify-center sm:shadow-md">
             <Image
               src="/logo1.png"
               alt="Logo"
@@ -59,9 +58,9 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2 text-gray-800">Welcome Back</h2>
-        <p className="text-center text-sm sm:text-base text-gray-500 mb-6">
-          Sign in to your account to continue
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2 text-[#1a1a1a]">Hey there!</h2>
+        <p className="text-center text-sm sm:text-base text-[#000000] mb-6 font-medium">
+          Ready to jump back in?
         </p>
 
         {error && (
@@ -72,34 +71,34 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block mb-2 font-medium text-gray-700">Email</label>
+            <label className="block mb-2 font-medium text-[#1a1a1a]">Email</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <FiMail className="text-gray-400" />
               </div>
               <input
                 type="email"
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a87903] focus:border-transparent text-gray-700 transition-all"
+                className="w-full pl-10 pr-4 py-3 border border-[#f7e9ae] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c88e3b] focus:border-transparent text-gray-700 transition-all bg-white"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
+                placeholder="your.email@example.com"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="block mb-2 font-medium text-gray-700">Password</label>
+            <label className="block mb-2 font-medium text-[#1a1a1a]">Password</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <FiLock className="text-gray-400" />
               </div>
               <input
                 type={showPassword ? 'text' : 'password'}
-                className="w-full pl-10 pr-10 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a87903] focus:border-transparent text-gray-700 transition-all"
+                className="w-full pl-10 pr-10 py-3 border border-[#f7e9ae] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c88e3b] focus:border-transparent text-gray-700 transition-all bg-white"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="your secret password"
                 required
                 minLength="6"
               />
@@ -109,9 +108,9 @@ export default function LoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
-                  <FiEyeOff className="text-gray-400 hover:text-blue-600" />
+                  <FiEyeOff className="text-gray-400 hover:text-[#c88e3b]" />
                 ) : (
-                  <FiEye className="text-gray-400 hover:text-blue-600" />
+                  <FiEye className="text-gray-400 hover:text-[#c88e3b]" />
                 )}
               </button>
             </div>
@@ -124,13 +123,13 @@ export default function LoginPage() {
                 id="remember"
                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember" className="ml-2 block text-sm text-gray-700">
+              <label htmlFor="remember" className="ml-2 block text-sm text-[#1a1a1a]">
                 Remember me
               </label>
             </div>
             <Link
               href="/forgot-password"
-              className="text-sm text-indigo-600 hover:text-indigo-500 hover:underline"
+              className="text-sm text-[#000000] hover:text-[#c88e3b] hover:underline"
             >
               Forgot password?
             </Link>
@@ -139,18 +138,18 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-all flex items-center justify-center ${isLoading
-                ? 'bg-indigo-400 cursor-not-allowed'
-                : 'bg-[#0e0e0e] hover:bg-[#1d1d1d] shadow-md hover:shadow-lg'
+            className={`w-full py-3 px-4 rounded-xl font-semibold text-white transition-all flex items-center justify-center ${isLoading
+                ? 'bg-[#d2691e] cursor-not-allowed'
+                : 'bg-[#1a1a1a] hover:bg-black shadow-md hover:shadow-lg hover:scale-105'
               }`}
           >
             {isLoading ? (
               <>
                 <FiLoader className="animate-spin mr-2" />
-                Signing in...
+                Signing you in...
               </>
             ) : (
-              'Sign In'
+              'Let\'s Go!'
             )}
           </button>
         </form>
@@ -161,16 +160,16 @@ export default function LoginPage() {
               <div className="w-full border-t border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Don't have an account?</span>
+              <span className="px-2 bg-white sm:bg-white text-[#1a1a1a] font-medium">New here?</span>
             </div>
           </div>
 
           <div className="mt-4">
             <Link
               href="/register"
-              className="block w-full text-center py-2 px-4 border border-gray-200 rounded-lg font-medium bg-gray-50 text-[#0e0e0e] hover:bg-[#0e0e0e] hover:text-white hover:border-[#1d1d1d] transition-all"
+              className="block w-full text-center py-2 px-4 border border-[#f7e9ae] rounded-xl font-medium bg-[#f7e9ae] text-[#000000] hover:bg-[#000000] hover:text-white hover:border-[#000000] transition-all hover:scale-105"
             >
-              Create new account
+              Join the fun!
             </Link>
           </div>
         </div>
