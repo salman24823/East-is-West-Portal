@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import dbConnection from "@/config/dbConnection";
 import User from "@/models/userModel";
-export const revalidate = 0;
 
 // POST /api/register
 export async function POST(req) {
