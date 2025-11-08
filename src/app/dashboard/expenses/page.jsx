@@ -125,35 +125,35 @@ export default function ExpensePage() {
         </div>
 
         {/* Total */}
-        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl p-6 border border-[#f7e9ae]/50">
-          <h2 className="text-xl font-bold text-[#000000]">Total Expenses</h2>
-          <p className="text-4xl font-bold text-[#000000] mt-2">£{totalExpenses}</p>
+        <div className="backdrop-blur-xl bg-white/10 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 border border-[#f7e9ae]/50">
+          <h2 className="text-base sm:text-xl font-bold text-[#000000]">Total Expenses</h2>
+          <p className="text-3xl sm:text-4xl font-bold text-[#000000] mt-2">£{totalExpenses}</p>
         </div>
 
         {/* Expense List */}
-        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl overflow-hidden p-6 border border-[#f7e9ae]/50">
-          <h2 className="text-xl font-bold mb-4 text-[#000000]">Expense History</h2>
+        <div className="backdrop-blur-xl bg-white/10 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden p-3 sm:p-6 border border-[#f7e9ae]/50">
+          <h2 className="text-base sm:text-xl font-bold mb-3 sm:mb-4 text-[#000000]">Expense History</h2>
 
           {expenses.length === 0 ? (
-            <p className="text-center py-8 text-[#000000]/70">No expenses added yet.</p>
+            <p className="text-center py-6 sm:py-8 text-xs sm:text-base text-[#000000]/70">No expenses added yet.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-[#f7e9ae]/30">
+              <table className="min-w-full divide-y divide-[#f7e9ae]/30 text-xs sm:text-sm">
                 <thead className="bg-[#c88e3b]/20">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-[#000000] uppercase tracking-wider">Item</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-[#000000] uppercase tracking-wider">Amount</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-[#000000] uppercase tracking-wider">Date</th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-[#000000] uppercase tracking-wider">Action</th>
+                    <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-[#000000] uppercase tracking-wider">Item</th>
+                    <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-[#000000] uppercase tracking-wider">Amount</th>
+                    <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-[#000000] uppercase tracking-wider">Date</th>
+                    <th className="px-2 sm:px-6 py-2 sm:py-3 text-right text-xs font-medium text-[#000000] uppercase tracking-wider">Action</th>
                   </tr>
                 </thead>
                 <tbody className="bg-transparent divide-y divide-[#f7e9ae]/20">
                   {expenses.map((exp, i) => (
                     <tr key={exp._id || i} className="hover:bg-[#f7e9ae]/20">
-                      <td className="px-6 py-4 text-sm text-[#000000]">{exp.item}</td>
-                      <td className="px-6 py-4 text-sm font-bold text-[#000000]">£{exp.amount.toFixed(2)}</td>
-                      <td className="px-6 py-4 text-sm text-[#000000]/70">{exp.date}</td>
-                      <td className="px-6 py-4 text-right">
+                      <td className="px-2 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm text-[#000000] truncate">{exp.item}</td>
+                      <td className="px-2 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm font-bold text-[#000000]">£{exp.amount.toFixed(2)}</td>
+                      <td className="px-2 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm text-[#000000]/70">{exp.date}</td>
+                      <td className="px-2 sm:px-6 py-2 sm:py-4 text-right">
                         <button
                           onClick={() => handleDeleteExpense(i)}
                           className="text-[#000000] hover:text-[#c88e3b] transition"

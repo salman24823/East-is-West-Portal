@@ -47,10 +47,10 @@ export default function EmployeesPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen w-full px-4">
+      <div className="flex items-center justify-center min-h-screen w-full px-3 sm:px-4">
         <div className="flex flex-col items-center space-y-4">
-          <div className="w-12 h-12 border-4 border-[#000000] border-dashed rounded-full animate-spin"></div>
-          <p className="text-lg font-medium text-[#000000]/70">Loading employees...</p>
+          <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-[#000000] border-dashed rounded-full animate-spin"></div>
+          <p className="text-sm sm:text-lg font-medium text-[#000000]/70">Loading employees...</p>
         </div>
       </div>
     );
@@ -93,49 +93,49 @@ export default function EmployeesPage() {
   };
 
   return (
-    <main className="flex-1 px-4 py-6 sm:px-6 md:px-10 space-y-6">
-      <h1 className="text-2xl sm:text-2xl font-bold mb-4 text-[#000000]">Employees</h1>
-      <div className="backdrop-blur-xl bg-white/10 p-4 sm:p-6 rounded-3xl shadow-2xl border border-[#f7e9ae]/50">
-        <h2 className="text-xl font-semibold mb-4 text-[#000000]">All Employees</h2>
-        <div className="overflow-auto">
-          <table className="min-w-full text-sm sm:text-base">
+    <main className="flex-1 px-3 sm:px-4 md:px-6 lg:px-10 py-4 sm:py-6 space-y-4 sm:space-y-6 overflow-auto">
+      <h1 className="text-lg sm:text-2xl font-bold mb-3 sm:mb-4 text-[#000000]">Employees</h1>
+      <div className="backdrop-blur-xl bg-white/10 p-3 sm:p-4 md:p-6 rounded-2xl sm:rounded-3xl shadow-2xl border border-[#f7e9ae]/50 overflow-hidden">
+        <h2 className="text-base sm:text-xl font-semibold mb-3 sm:mb-4 text-[#000000]">All Employees</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-xs sm:text-sm md:text-base">
             <thead>
               <tr className="text-left border-b border-[#f7e9ae]/30 text-[#000000]">
-                <th className="px-4 sm:px-6 py-3">Name</th>
-                <th className="px-4 sm:px-6 py-3">Email</th>
-                <th className="px-4 sm:px-6 py-3">Pay</th>
-                <th className="px-4 sm:px-6 py-3">Actions</th>
+                <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3">Name</th>
+                <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3">Email</th>
+                <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3">Pay</th>
+                <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3">Actions</th>
               </tr>
             </thead>
             <tbody>
               {employees.map((employee, index) => (
                 <tr key={employee._id || index} className="border-b border-[#f7e9ae]/20 text-[#000000]/70 hover:bg-[#f7e9ae]/20">
-                  <td className="px-4 sm:px-6 py-4 text-[#000000]">{employee.fullname || employee.name}</td>
-                  <td className="px-4 sm:px-6 py-4">
-                    <Link href={`/dashboard/employees/${employee._id}`} className="text-black flex gap-2 hover:underline break-all">
-                      <CornerDownRight /> {employee.email}
+                  <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-4 text-[#000000] truncate">{employee.fullname || employee.name}</td>
+                  <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-4">
+                    <Link href={`/dashboard/employees/${employee._id}`} className="text-black flex gap-1 sm:gap-2 hover:underline break-all text-xs sm:text-sm">
+                      <CornerDownRight className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 mt-0.5" /> {employee.email}
                     </Link>
                   </td>
-                  <td className="px-4 sm:px-6 py-4 text-[#000000]">
+                  <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-4 text-[#000000]">
                     {editingId === employee._id ? (
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2">
                         <input
                           type="number"
                           value={editingValue}
                           onChange={(e) => setEditingValue(e.target.value)}
-                          className="w-28 px-2 py-1 rounded-md border border-[#f7e9ae]/30 bg-[#fff]/5 text-[#000000]"
+                          className="w-full sm:w-20 md:w-28 px-2 py-1 text-xs sm:text-sm rounded-md border border-[#f7e9ae]/30 bg-[#fff]/5 text-[#000000]"
                         />
-                        <button onClick={() => handleSave(employee._id)} className="px-2 py-1 bg-[#000000] text-white rounded-md">Save</button>
-                        <button onClick={handleCancel} className="px-2 py-1 border rounded-md">Cancel</button>
+                        <button onClick={() => handleSave(employee._id)} className="w-full sm:w-auto px-2 py-1 text-xs sm:text-sm bg-[#000000] text-white rounded-md hover:bg-[#1a1a1a]">Save</button>
+                        <button onClick={handleCancel} className="w-full sm:w-auto px-2 py-1 text-xs sm:text-sm border rounded-md hover:bg-gray-100">Cancel</button>
                       </div>
                     ) : (
-                      <button onClick={() => handleStartEdit(employee._id, employee.payPerHour)} className="underline">
+                      <button onClick={() => handleStartEdit(employee._id, employee.payPerHour)} className="underline text-xs sm:text-sm">
                         ₦{employee.payPerHour ?? defaultPay}
                       </button>
                     )}
                   </td>
-                  <td className="px-4 sm:px-6 py-4">
-                    <button className="bg-[#000000] text-white py-1 px-3 sm:py-2 sm:px-4 shadow rounded-md hover:bg-[#1a1a1a] transition">
+                  <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-4">
+                    <button className="bg-[#000000] text-white text-xs sm:text-sm py-1 px-2 sm:py-2 sm:px-4 shadow rounded-md hover:bg-[#1a1a1a] transition w-full sm:w-auto">
                       Terminate
                     </button>
                   </td>

@@ -125,8 +125,8 @@ export default function CheckOutPage() {
   };
 
   return (
-    <main className="flex-1 p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <main className="flex-1 p-3 sm:p-4 md:p-6 overflow-auto">
+      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl overflow-hidden border border-[#f7e9ae]/50">
 

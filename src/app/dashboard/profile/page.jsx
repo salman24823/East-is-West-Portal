@@ -26,7 +26,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="pt-20 pl-6">
-        <h1 className="text-2xl font-bold text-[#000000]">John don24</h1>
+        <h1 className="text-lg sm:text-2xl font-bold text-[#000000]">John don24</h1>
         <p className="text-[#000000]/70">CTO</p>
       </div>
 

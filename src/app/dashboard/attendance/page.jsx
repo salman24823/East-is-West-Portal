@@ -107,7 +107,7 @@ const calculateTotalHours = (checkIn, checkOut) => {
       </div>
 
         <div className="relative z-10 max-w-5xl mx-auto space-y-6">
-        <h1 className="text-center text-2xl font-bold text-[#000000]">Employee Attendance</h1>
+        <h1 className="text-center text-lg sm:text-2xl font-bold text-[#000000]">Employee Attendance</h1>
 
         {/* Pay-per-hour display & admin edit control */}
         <div className="flex items-center justify-center gap-4">

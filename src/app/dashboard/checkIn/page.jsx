@@ -128,28 +128,28 @@ export default function CheckInPage() {
   };
 
   return (
-    <main className="flex-1 p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <main className="flex-1 p-3 sm:p-4 md:p-6 overflow-auto">
+      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         {/* Check-In Form */}
-        <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl overflow-hidden border border-[#f7e9ae]/50">
-          <div className=" bg-[#000000] p-2 text-white flex justify-between items-center">
-            <h2 className="text-1xl font-bold ml-4" onClick={()=> console.log(session,"session") } >Employee Check-In</h2>
-            <p className="text-[#f7e9ae] mt-1 mr-4">Record your daily check-in</p>
+        <div className="backdrop-blur-xl bg-white/10 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-[#f7e9ae]/50">
+          <div className="bg-[#000000] p-2 sm:p-3 text-white flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+            <h2 className="text-lg sm:text-2xl font-bold sm:ml-4" onClick={()=> console.log(session,"session") } >Employee Check-In</h2>
+            <p className="text-[#f7e9ae] text-xs sm:text-base sm:mr-4">Record your daily check-in</p>
           </div>
 
-          <form onSubmit={handleCheckIn} className="p-6 space-y-5">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <form onSubmit={handleCheckIn} className="p-4 sm:p-6 space-y-4 sm:space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-5">
               {/* Name */}
               <div>
-                <label className="text-sm font-medium text-[#000000] mb-1 flex items-center">
-                  <FiUser className="mr-2" /> Employee Name
+                <label className="text-xs sm:text-sm font-medium text-[#000000] mb-1 flex items-center">
+                  <FiUser className="mr-2 w-4 h-4 sm:w-5 sm:h-5" /> Employee Name
                 </label>
                 <input
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   type="text"
-                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+                  className={`w-full px-3 sm:px-4 py-2 text-xs sm:text-sm border rounded-lg focus:outline-none focus:ring-2 ${
                     errors.name
                       ? 'border-red-300 focus:ring-red-200'
                       : 'border-[#f7e9ae]/50 focus:ring-[#c88e3b]'
@@ -157,12 +157,12 @@ export default function CheckInPage() {
                   placeholder="Enter your full name"
                   required
                 />
-                {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
+                {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
               </div>
 
               {/* Date */}
               <div>
-                <label className="text-sm font-medium text-[#000000] mb-1 flex items-center">
+                <label className="text-xs sm:text-sm font-medium text-[#000000] mb-1 flex items-center">
                   <FiCalendar className="mr-2" /> Date
                 </label>
                 <div className="w-full px-4 py-2 border border-[#f7e9ae]/50 text-[#000000]/70 rounded-lg bg-[#f7e9ae]/20">

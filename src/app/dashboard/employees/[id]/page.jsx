@@ -89,7 +89,7 @@ export default function EmployeeSalaryPage() {
     <main className="min-h-screen p-6 flex flex-col md:flex-row gap-6 w-full">
       {/* Main Content */}
       <div className="w-full md:w-2/3 backdrop-blur-xl bg-white/10 p-6 rounded-3xl shadow-2xl border border-[#f7e9ae]/50">
-        <h1 className="text-2xl font-bold text-[#000000] mb-4 flex items-center">
+        <h1 className="text-lg sm:text-2xl font-bold text-[#000000] mb-4 flex items-center">
           <FiUser className="mr-2" /> {employee.fullname || employee.name}
         </h1>
 
