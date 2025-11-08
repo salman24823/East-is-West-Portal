@@ -83,10 +83,7 @@ export default function LoginPage() {
       {/* Main Container */}
       <div className="relative z-10 w-full max-w-md">
         <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl p-8 border border-[#f7e9ae]/50 group">
-          
-          {/* Ambient Light Effect */}
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#c88e3b]/10 to-[#f7e9ae]/10 opacity-0 group-hover:opacity-100 blur-xl"></div>
-          
+                    
           {/* Logo Section */}
           <div className="flex justify-center mb-8 relative">
             <div className="relative group">
