@@ -3,6 +3,7 @@
 
 
 
+import { Globe2, GlobeIcon, Link2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -14,6 +15,7 @@ import {
 export default function Sidebar() {
   const navItems = [
     { name: 'Dashboard', icon: FiHome, path: '/dashboard' },
+    { name: 'Website', icon: Link2, path: '#' },
     { name: 'Check In', icon: FiClock, path: '/dashboard/checkIn' },
     { name: 'Check Out', icon: FiClock, path: '/dashboard/checkout' },
     { name: 'Attendance', icon: FiClock, path: '/dashboard/attendance' },
