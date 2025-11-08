@@ -2,16 +2,37 @@
 
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useSession } from 'next-auth/react';
 
 export default function AttendancePage() {
+  const { data: session } = useSession();
   const [records, setRecords] = useState([]);
   const [filter, setFilter] = useState('today');
 
-  const payPerHour = 500; // Set your pay per hour here
+  // payPerHour is now dynamic and stored in DB via /api/settings
+  const [payPerHour, setPayPerHour] = useState(500);
+  const [loadingPay, setLoadingPay] = useState(true);
+  const [isEditingPay, setIsEditingPay] = useState(false);
+  const [newPayValue, setNewPayValue] = useState('');
 
   useEffect(() => {
     fetchMergedAttendance();
+    fetchSettings();
   }, []);
+
+  const fetchSettings = async () => {
+    setLoadingPay(true);
+    try {
+      const res = await fetch('/api/settings');
+      if (!res.ok) throw new Error('Failed to fetch settings');
+      const data = await res.json();
+      if (data.payPerHour !== undefined) setPayPerHour(Number(data.payPerHour));
+    } catch (err) {
+      console.warn('Could not load settings, using defaults', err.message);
+    } finally {
+      setLoadingPay(false);
+    }
+  };
 
   const fetchMergedAttendance = async () => {
     try {
@@ -85,9 +106,72 @@ const calculateTotalHours = (checkIn, checkOut) => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto space-y-6">
+        <div className="relative z-10 max-w-5xl mx-auto space-y-6">
         <h1 className="text-center text-2xl font-bold text-[#000000]">Employee Attendance</h1>
 
+        {/* Pay-per-hour display & admin edit control */}
+        <div className="flex items-center justify-center gap-4">
+          <div className="text-sm text-[#000000]/80">
+            Pay per hour: <span className="font-semibold text-[#000000]">{loadingPay ? 'Loading...' : `₦${payPerHour}`}</span>
+          </div>
+          {/* Only show edit control for admin: match ADMIN_EMAIL env variable if present */}
+          {session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+            <div className="flex items-center gap-2">
+              {isEditingPay ? (
+                <>
+                  <input
+                    type="number"
+                    className="w-28 px-3 py-1 rounded-md border border-[#f7e9ae]/40 bg-[#f7e9ae]/10 text-[#000000]"
+                    value={newPayValue}
+                    onChange={(e) => setNewPayValue(e.target.value)}
+                    placeholder="amount"
+                  />
+                  <button
+                    className="px-3 py-1 bg-[#000000] text-white rounded-md hover:bg-[#1a1a1a] transition"
+                    onClick={async () => {
+                      const val = Number(newPayValue);
+                      if (!val || val <= 0) {
+                        toast.error('Enter a valid amount');
+                        return;
+                      }
+                      try {
+                        const res = await fetch('/api/settings', {
+                          method: 'PATCH',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ key: 'payPerHour', value: val }),
+                        });
+                        if (!res.ok) throw new Error('Update failed');
+                        const data = await res.json();
+                        setPayPerHour(Number(data.setting.value));
+                        toast.success('Pay per hour updated');
+                        setIsEditingPay(false);
+                      } catch (err) {
+                        console.error(err);
+                        toast.error('Failed to update pay');
+                      }
+                    }}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="px-3 py-1 border rounded-md"
+                    onClick={() => setIsEditingPay(false)}
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="px-3 py-1 bg-[#000000] text-white rounded-md hover:bg-[#1a1a1a] transition"
+                  onClick={() => { setNewPayValue(String(payPerHour)); setIsEditingPay(true); }}
+                >
+                  Edit
+                </button>
+              )}
+            </div>
+          )}
+
+        </div>
         {/* Filters */}
         <div className="flex justify-center gap-3">
           {['today', 'yesterday'].map((key) => (

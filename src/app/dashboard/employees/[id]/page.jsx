@@ -86,7 +86,7 @@ export default function EmployeeSalaryPage() {
   if (!employee) return <div className="p-10 text-center text-[#c88e3b]">Employee not found.</div>;
 
   return (
-    <main className="min-h-screen p-6 flex flex-col md:flex-row gap-6">
+    <main className="min-h-screen p-6 flex flex-col md:flex-row gap-6 w-full">
       {/* Main Content */}
       <div className="w-full md:w-2/3 backdrop-blur-xl bg-white/10 p-6 rounded-3xl shadow-2xl border border-[#f7e9ae]/50">
         <h1 className="text-2xl font-bold text-[#000000] mb-4 flex items-center">

@@ -101,7 +101,7 @@ export default function ExpensePage() {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-[#000000] mb-1">Amount ($)</label>
+                <label className="text-sm font-medium text-[#000000] mb-1">Amount (£)</label>
                 <input
                   type="number"
                   value={amount}
@@ -127,7 +127,7 @@ export default function ExpensePage() {
         {/* Total */}
         <div className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl p-6 border border-[#f7e9ae]/50">
           <h2 className="text-xl font-bold text-[#000000]">Total Expenses</h2>
-          <p className="text-4xl font-bold text-[#000000] mt-2">${totalExpenses}</p>
+          <p className="text-4xl font-bold text-[#000000] mt-2">£{totalExpenses}</p>
         </div>
 
         {/* Expense List */}
@@ -151,7 +151,7 @@ export default function ExpensePage() {
                   {expenses.map((exp, i) => (
                     <tr key={exp._id || i} className="hover:bg-[#f7e9ae]/20">
                       <td className="px-6 py-4 text-sm text-[#000000]">{exp.item}</td>
-                      <td className="px-6 py-4 text-sm font-bold text-[#000000]">${exp.amount.toFixed(2)}</td>
+                      <td className="px-6 py-4 text-sm font-bold text-[#000000]">£{exp.amount.toFixed(2)}</td>
                       <td className="px-6 py-4 text-sm text-[#000000]/70">{exp.date}</td>
                       <td className="px-6 py-4 text-right">
                         <button

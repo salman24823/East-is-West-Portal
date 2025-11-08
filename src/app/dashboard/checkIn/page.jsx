@@ -14,8 +14,9 @@ export default function CheckInPage() {
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  
   const [formData, setFormData] = useState({
-    name: session?.user?.name || "",
+    name: session?.user?.name || "Loading...",
     date: new Date().toISOString().split('T')[0],
     time: '',
     location: '',
@@ -254,6 +255,6 @@ export default function CheckInPage() {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

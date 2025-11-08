@@ -73,6 +73,9 @@ export async function PATCH(req, { params }) {
       date: new Date().toISOString(),
     });
 
+    // Also update the user's current payPerHour so each employee can have their own rate
+    user.payPerHour = newPay;
+
     await user.save();
 
     console.log("✅ Pay updated for user:", params.id);

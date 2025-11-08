@@ -4,22 +4,16 @@ import { useEffect, useState } from "react";
 import SummaryCard from "./components/SummaryCard";
 // import SalesChart from "./components/SalesChart"; // not used for staff dashboard
 import {
-  FiTrendingUp,
   FiTrendingDown,
-  FiDollarSign,
-  FiDownload,
-  FiUpload,
+  // FiPound,
   FiAlertTriangle,
-  FiBox,
-  FiRefreshCw,
   FiCheckCircle,
   FiLoader,
   FiClock,
 } from "react-icons/fi";
 import { useSession } from "next-auth/react";
-import { EarIcon, EarthIcon, Facebook, Instagram, Youtube } from "lucide-react";
-import SocialLinksSection from "../components/Links";
 import Link from "next/link";
+import { PoundSterling } from "lucide-react";
 
 export default function Dashboard() {
   const [totalExpense, setTotalExpense] = useState(0);
@@ -27,7 +21,6 @@ export default function Dashboard() {
   const [todayCheckins, setTodayCheckins] = useState(0);
   const [todayCheckouts, setTodayCheckouts] = useState(0);
   const [recentAttendance, setRecentAttendance] = useState([]);
-  // loading flags for each section
   const [loadingEmployees, setLoadingEmployees] = useState(true);
   const [loadingCheckins, setLoadingCheckins] = useState(true);
   const [loadingCheckouts, setLoadingCheckouts] = useState(true);
@@ -112,15 +105,17 @@ export default function Dashboard() {
       change: "—",
       isPositive: true,
       icon: <FiCheckCircle className="text-[#c88e3b] text-2xl" />,
-      color: "bg-[#c88e3b]/20",
+      // bg: "bg-[#c88e3b]/20",
+      link: "/dashboard/employees"
     },
     {
       title: "Today's Check-Ins",
       value: todayCheckins,
       change: "—",
       isPositive: true,
-      icon: <FiClock className="text-[#f7e9ae] text-2xl" />,
-      color: "bg-[#f7e9ae]/20",
+      icon: <FiClock className="text-[#c88e3b] text-2xl" />,
+      // bg: "bg-[#c88e3b]/20",
+      link: "/dashboard/attendance"
     },
     {
       title: "Today's Check-Outs",
@@ -128,15 +123,17 @@ export default function Dashboard() {
       change: "—",
       isPositive: true,
       icon: <FiTrendingDown className="text-[#c88e3b] text-2xl" />,
-      color: "bg-[#c88e3b]/20",
+      // bg: "bg-[#c88e3b]/20",
+      link: "/dashboard/attendance"
     },
     {
       title: "Total Expense",
-      value: `$${totalExpense.toLocaleString()}`,
+      value: loadingExpense ? "..." : `£${totalExpense.toLocaleString()}`,
       change: "—",
       isPositive: false,
-      icon: <FiDollarSign className="text-[#000000] text-2xl" />,
-      color: "bg-[#000000]/10",
+      icon: <PoundSterling className="text-[#000000] text-2xl" />,
+      // bg: "bg-[#000000]/10",
+      link: "/dashboard/expenses"
     },
   ];
 
@@ -153,25 +150,19 @@ export default function Dashboard() {
       <h1 className="text-2xl font-bold text-[#000000]">Dashboard Overview</h1>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {summaryCards.map((card, idx) => (
-          <SummaryCard key={idx} {...card} />
-        ))}
-      </div>
-
-      <SocialLinksSection />
+      <SummaryCard cards={summaryCards} />
 
       {/* Staff Summary & Recent Attendance */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Attendance */}
         <div className="backdrop-blur-xl bg-white/10 p-5 rounded-3xl shadow-2xl border border-[#f7e9ae]/50">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-lg text-[#000000]"> 
+            <h2 className="font-semibold text-lg text-[#000000]">
               <Link href="/dashboard/attendance" className="hover:underline">
-               Recent Attendance
+                Recent Attendance
               </Link>
-               
-               </h2>
+
+            </h2>
             <button
               onClick={() => window.location.reload()}
               className="text-sm text-[#c88e3b] hover:underline"
@@ -234,33 +225,28 @@ export default function Dashboard() {
         <div className="space-y-6">
           <div className="backdrop-blur-xl bg-white/10 p-5 rounded-3xl shadow-2xl border border-[#f7e9ae]/50">
             <h2 className="font-semibold text-lg mb-4 text-[#000000]">
-              
-              Overview
-              
-              </h2>
+
+              Analytics Overview
+            </h2>
             <div className="grid grid-cols-2 gap-4">
-              {summaryCards.map((card, idx) => (
-                <div
-                  key={idx}
-                  className={`flex items-center space-x-3 p-3 bg-[#f7e9ae]/20 rounded-lg`}
-                >
-                  <div className="p-2 bg-white/50 rounded-lg shadow-xs">{card.icon}</div>
-                  <div>
-                    <p className="text-sm text-[#000000]/70">
-                      <Link href={card.title === "Total Expense" ? "/dashboard/expenses" : card.title === "Total Employees" ? "/dashboard/employees" : "/dashboard/attendance"} className="hover:underline">
-                      {card.title}
-                      </Link>
-                      </p>
-                    <p className="font-bold text-xl text-[#000000]">
-                      {isCardLoading(card.title) ? (
-                        <FiLoader className="animate-spin text-[#c88e3b]" />
-                      ) : (
-                        card.value
-                      )}
-                    </p>
-                  </div>
+              <div className="flex items-center space-x-3 p-3 bg-[#f7e9ae]/50 rounded-lg">
+                <div className="p-2  rounded-lg shadow-xs">
+                  <FiAlertTriangle className="text-[#c88e3b]" />
                 </div>
-              ))}
+                <div>
+                  <p className="text-sm text-[#000000]/70">Pending Approvals</p>
+                  <p className="font-bold text-xl text-[#000000]">3</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3 p-3 bg-[#f7e9ae]/50 rounded-lg">
+                <div className="p-2  rounded-lg shadow-xs">
+                  <FiAlertTriangle className="text-red-500" />
+                </div>
+                <div>
+                  <p className="text-sm text-[#000000]/70">Low Attendance</p>
+                  <p className="font-bold text-xl text-[#000000]">2</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -270,7 +256,7 @@ export default function Dashboard() {
               <h2 className="font-semibold text-lg text-[#000000]">HR Alerts</h2>
               <Link href={"/dashboard/employees"} className="text-sm text-[#c88e3b] hover:underline">
                 Manage
-                </Link>
+              </Link>
             </div>
             <div className="space-y-3">
               <div className="flex items-center justify-between p-3 bg-[#f7e9ae]/30 rounded-lg">
@@ -294,3 +280,4 @@ export default function Dashboard() {
     </main>
   );
 }
+

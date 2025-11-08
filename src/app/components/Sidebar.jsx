@@ -27,11 +27,11 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="max-lg:hidden relative w-64 bg-gray-900 text-white py-4 space-y-2">
+    <aside className="max-lg:hidden relative w-64 flex flex-col justify-between bg-gray-900 text-white py-4 space-y-2">
       <div className='sticky top-4'>
 
         {/* ✅ Logo Display */}
-        <div className="flex flex-col items-center mb-6">
+        <div className="flex flex-col items-start p-3 mb-6">
           <Image
             src="/logo1.png"
             alt="Panze Logo"
@@ -40,7 +40,7 @@ export default function Sidebar() {
             className="rounded-xl"
           />
           <div className="text-2xl font-bold mt-2">
-            <span>EAST IS WEST </span>
+            <span>EAST IS WEST HOTEL</span>
           </div>
         </div>
 
@@ -57,6 +57,24 @@ export default function Sidebar() {
             </Link>
           ))}
         </nav>
+      </div>
+
+      <div className="p-4 w-full">
+        <Link
+          href="#"
+          className="block w-full p-3 rounded-lg border border-[#f7e9ae]/30 bg-white/5 hover:bg-white/10 transition shadow-sm hover:shadow-md"
+          aria-label="East is West Coffee"
+        >
+          <div className="flex items-center gap-3">
+            <div className="flex-shrink-0 w-10 h-10 rounded-md bg-[#c88e3b]/20 flex items-center justify-center text-[#000000] font-bold">
+              C
+            </div>
+            <div className="overflow-hidden">
+              <div className="text-sm font-semibold text-[#f7e9ae] leading-tight truncate">East is West Coffee</div>
+              <div className="text-xs text-white/70 truncate">Open 8am - 8pm</div>
+            </div>
+          </div>
+        </Link>
       </div>
     </aside>
   );

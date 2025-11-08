@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
     weeklyPay: { type: Number, default: 0 },
+    payPerHour: { type: Number, default: 500 },
     payHistory: [
       {
         amount: Number,
