@@ -25,11 +25,13 @@ const Layout = ({ children }) => {
       </div>
 
       <AuthProvider>
-        <div className="relative z-10 flex min-h-screen">
+        <div className="relative z-10 flex flex-col lg:flex-row min-h-screen">
+          {/* Mobile offset for header */}
+          <div className="lg:hidden h-16"></div>
 
           <ToastContainer />
           <Sidebar />
-          {children}
+          <div className="flex-1">{children}</div>
         </div>
       </AuthProvider>
     </div>
