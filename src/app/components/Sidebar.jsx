@@ -63,7 +63,7 @@ export default function Sidebar() {
 
       <div className="p-4 w-full">
         <Link
-          href="#"
+          href="https://eastiswest.vercel.app/"
           className="block w-full p-3 rounded-lg border border-[#f7e9ae]/30 bg-white/5 hover:bg-white/10 transition shadow-sm hover:shadow-md"
           aria-label="East is West Coffee"
         >
